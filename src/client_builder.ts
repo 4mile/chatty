@@ -32,17 +32,17 @@ import { ChattyClient } from './client'
 export class ChattyClientBuilder {
   private _targetOrigin = '*'
   private _handlers: CallbackStore = {}
-  private _defaultTimeout = 30000
+  private _defaultTimeout = -1
 
-  get targetOrigin () {
+  get targetOrigin() {
     return this._targetOrigin
   }
 
-  get handlers () {
+  get handlers() {
     return this._handlers
   }
 
-  get defaultTimeout () {
+  get defaultTimeout() {
     return this._defaultTimeout
   }
 
@@ -54,7 +54,7 @@ export class ChattyClientBuilder {
    * @returns the client builder
    */
 
-  off (name: string, fn: Callback) {
+  off(name: string, fn: Callback) {
     if (this._handlers[name]) {
       this._handlers[name] = this._handlers[name].filter((handler) => handler !== fn)
     }
@@ -71,7 +71,7 @@ export class ChattyClientBuilder {
    * @returns the client builder
    */
 
-  on (name: string, fn: Callback) {
+  on(name: string, fn: Callback) {
     this._handlers[name] = this._handlers[name] || []
     this._handlers[name].push(fn)
     return this
@@ -86,7 +86,7 @@ export class ChattyClientBuilder {
    * @returns the client builder
    */
 
-  withDefaultTimeout (timeout: number) {
+  withDefaultTimeout(timeout: number) {
     this._defaultTimeout = timeout
     return this
   }
@@ -99,7 +99,7 @@ export class ChattyClientBuilder {
    * @returns the client builder
    */
 
-  withTargetOrigin (targetOrigin: string) {
+  withTargetOrigin(targetOrigin: string) {
     this._targetOrigin = targetOrigin
     return this
   }
@@ -109,7 +109,7 @@ export class ChattyClientBuilder {
    * @returns a new Chatty client.
    */
 
-  build () {
+  build() {
     return new ChattyClient(this)
   }
 }
