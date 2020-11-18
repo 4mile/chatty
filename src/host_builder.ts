@@ -36,40 +36,40 @@ export class ChattyHostBuilder {
   private _allowAttrs: string[] = []
   private _frameBorder: string = '0'
   private _targetOrigin: string | null = null
-  private _defaultTimeout = 30000
+  private _defaultTimeout = -1
 
   /** @hidden */
-  constructor (private _url?: string, private _source?: string) {}
+  constructor(private _url?: string, private _source?: string) { }
 
-  get el () {
+  get el() {
     return this._appendTo || document.body
   }
 
-  get handlers () {
+  get handlers() {
     return this._handlers
   }
 
-  get sandboxAttrs () {
+  get sandboxAttrs() {
     return this._sandboxAttrs
   }
 
-  get allowAttrs () {
+  get allowAttrs() {
     return this._allowAttrs
   }
 
-  get targetOrigin () {
+  get targetOrigin() {
     return this._targetOrigin
   }
 
-  get url () {
+  get url() {
     return this._url
   }
 
-  get source () {
+  get source() {
     return this._source
   }
 
-  get defaultTimeout () {
+  get defaultTimeout() {
     return this._defaultTimeout
   }
 
@@ -79,7 +79,7 @@ export class ChattyHostBuilder {
    * @returns the host builder
    */
 
-  appendTo (el: HTMLElement) {
+  appendTo(el: HTMLElement) {
     this._appendTo = el
     return this
   }
@@ -92,7 +92,7 @@ export class ChattyHostBuilder {
    * @returns the host builder
    */
 
-  off (name: string, fn: Callback) {
+  off(name: string, fn: Callback) {
     if (this._handlers[name]) {
       this._handlers[name] = this._handlers[name].filter((handler) => handler !== fn)
     }
@@ -109,7 +109,7 @@ export class ChattyHostBuilder {
    * @returns the host builder
    */
 
-  on (name: string, fn: Callback) {
+  on(name: string, fn: Callback) {
     this._handlers[name] = this._handlers[name] || []
     this._handlers[name].push(fn)
     return this
@@ -123,27 +123,27 @@ export class ChattyHostBuilder {
    * @returns the host builder
    */
 
-  withDefaultTimeout (timeout: number) {
+  withDefaultTimeout(timeout: number) {
     this._defaultTimeout = timeout
     return this
   }
 
   /** @deprecated The frame-board attribute is deprecated, use CSS instead */
 
-  getFrameBorder () {
+  getFrameBorder() {
     return this._frameBorder
   }
 
   /** @deprecated The frame-board attribute is deprecated, use CSS instead */
 
-  frameBorder (attr: string) {
+  frameBorder(attr: string) {
     this._frameBorder = attr
     return this
   }
 
   /** @deprecated Replaced by [[withSandboxAttribute]] */
 
-  sandbox (attr: string) {
+  sandbox(attr: string) {
     this.withSandboxAttribute(attr)
     return this
   }
@@ -154,7 +154,7 @@ export class ChattyHostBuilder {
    * @param attr The sandbox attribute
    */
 
-  withSandboxAttribute (attr: string) {
+  withSandboxAttribute(attr: string) {
     this._sandboxAttrs.push(attr)
     return this
   }
@@ -165,7 +165,7 @@ export class ChattyHostBuilder {
    * @param attr The sandbox attribute
    */
 
-  withAllowAttribute (attr: string) {
+  withAllowAttribute(attr: string) {
     this._allowAttrs.push(attr)
     return this
   }
@@ -178,7 +178,7 @@ export class ChattyHostBuilder {
    * @param targetOrigin
    */
 
-  withTargetOrigin (targetOrigin: string) {
+  withTargetOrigin(targetOrigin: string) {
     this._targetOrigin = targetOrigin
     return this
   }
@@ -187,7 +187,7 @@ export class ChattyHostBuilder {
    * Builds a [[ChattyHost]] with the provided properties.
    */
 
-  build () {
+  build() {
     return new ChattyHost(this)
   }
 }
